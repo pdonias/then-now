@@ -1,0 +1,17 @@
+{
+  "name": "then-now",
+  "version": "1.0.0",
+  "description": "Press-and-hold image swap gallery for then/now photo comparisons",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.1.0",
+    "handlebars": "^4.7.8"
+  }
+}

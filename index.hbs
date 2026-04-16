@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Press-and-Hold Image Swap</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: #0b0d10;
+      color: #e7ebf0;
+      min-height: 100vh;
+      padding: 32px;
+    }
+
+    .container {
+      width: min(900px, 100%);
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
+      margin: 0 0 8px 0;
+      letter-spacing: .2px;
+      text-align: center;
+    }
+
+    p {
+      opacity: .8;
+      margin: 0 0 24px 0;
+    }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #12161c;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+      outline: none;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: auto;
+      cursor: default;
+    }
+
+    .card .alt {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity .15s ease-in-out;
+      pointer-events: none;
+    }
+
+    .card.holding .alt {
+      opacity: 1;
+    }
+
+    .card:focus-visible {
+      outline: 2px solid #6aa9ff;
+      outline-offset: 2px;
+    }
+
+    .hint {
+      font-size: .95rem;
+      opacity: .7;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Grenoble</h1>
+
+    <ul class="gallery">
+      {{#each pictures}}
+      <li class="card" tabindex="0">
+        <img class="base" src="/img/{{this.then}}" />
+        <img class="alt" aria-hidden="true" src="/img/{{this.now}}" />
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+
+  <script>
+    const attachBehavior = () => {
+      const cards = document.querySelectorAll('.card')
+
+      const addHolding = (el) => el.classList.add('holding')
+      const removeHolding = (el) => el.classList.remove('holding')
+
+      cards.forEach((card) => {
+        card.querySelectorAll('img').forEach(img => {
+          img.addEventListener('contextmenu', event => {
+            event.preventDefault()
+          })
+        })
+
+        card.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'touch') e.preventDefault()
+          card.setPointerCapture?.(e.pointerId)
+          addHolding(card)
+        })
+
+        const end = () => removeHolding(card)
+        card.addEventListener('pointerup', end)
+        card.addEventListener('pointercancel', end)
+        card.addEventListener('pointerleave', end)
+
+        card.addEventListener('keydown', (e) => {
+          if (e.code === 'Space' || e.code === 'Enter') {
+            e.preventDefault()
+            addHolding(card)
+          }
+        })
+        card.addEventListener('keyup', (e) => {
+          if (e.code === 'Space' || e.code === 'Enter') {
+            e.preventDefault()
+            removeHolding(card)
+          }
+        })
+      })
+    }
+
+    attachBehavior()
+
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.card .alt').forEach((img) => {
+        const preload = new Image()
+        preload.src = img.src
+      })
+    });
+  </script>
+</body>
+
+</html>
