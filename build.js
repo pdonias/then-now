@@ -18,6 +18,10 @@ fs.readdirSync('./img').forEach(file => {
   fs.copyFileSync(`./img/${file}`, `./dist/img/${file}`)
 })
 
+if (fs.existsSync('./CNAME')) {
+  fs.copyFileSync('./CNAME', './dist/CNAME')
+}
+
 const template = handlebars.compile(fs.readFileSync('./index.hbs', 'utf-8'))
 fs.writeFileSync('./dist/index.html', template({ pictures }))
 
