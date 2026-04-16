@@ -12,110 +12,162 @@
   <meta property="og:image" content="https://grenoble.donias.fr/img/jauresvizille.jpg" />
   <link rel="icon" href="img/jauresvizille.jpg" />
   <style>
+    :root {
+      /* Background & surfaces */
+      --bg: #ede5d8;
+      --surface: #faf6f0;
+      --surface-tint: #f3ece0;
+
+      /* Text */
+      --text: #1c1710;
+      --text-muted: #7a6a58;
+      --text-subtle: #a8957e;
+
+      /* Accents */
+      --red: #bf2c0e;
+      --navy: #1a3356;
+
+      /* Badges */
+      --badge-then-bg: #bf2c0e;
+      --badge-then-text: #fff;
+      --badge-now-bg: #1a3356;
+      --badge-now-text: #fff;
+
+      /* Cards */
+      --card-bg: #fdfaf5;
+      --card-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.12),
+        0 8px 18px rgba(0, 0, 0, 0.18),
+        0 24px 48px rgba(0, 0, 0, 0.14);
+
+      /* Misc */
+      --focus-ring: #bf2c0e;
+      --title-font: Georgia, 'Times New Roman', serif;
+      --body-font: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      --divider: rgba(80, 55, 30, 0.2);
+    }
+
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: #0c0e13;
-      background-image: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(80, 110, 170, 0.1) 0%, transparent 70%);
-      color: #e2e8f0;
+      font-family: var(--body-font);
+      background-color: var(--bg);
+      color: var(--text);
       min-height: 100vh;
-      padding: 48px 32px 64px;
+      padding: 56px 32px 72px;
     }
 
+
     .container {
+      position: relative;
+      z-index: 0;
       width: min(860px, 100%);
       margin: 0 auto;
     }
 
     .header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 48px;
     }
 
     h1 {
-      font-size: clamp(2rem, 1.2rem + 3vw, 3.2rem);
-      font-weight: 800;
-      margin: 0 0 6px;
+      font-family: var(--title-font);
+      font-size: clamp(3rem, 2rem + 4vw, 5.5rem);
+      font-weight: 400;
+      font-style: italic;
+      margin: 0 0 2px;
       letter-spacing: -1px;
-      background: linear-gradient(160deg, #e2e8f0 30%, #8eaed4 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
+      line-height: 1;
     }
 
     .tagline {
-      font-size: clamp(0.75rem, 0.5rem + 0.8vw, 0.9rem);
-      letter-spacing: 0.35em;
+      font-size: clamp(0.7rem, 0.5rem + 0.6vw, 0.82rem);
+      letter-spacing: 0.4em;
       text-transform: uppercase;
-      color: #64748b;
-      margin: 0 0 28px;
+      color: var(--red);
+      font-weight: 600;
+      margin: 0 0 32px;
     }
 
     .steps {
       display: inline-flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       text-align: left;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 12px;
-      padding: 14px 20px;
+      background: var(--surface-tint);
+      border-top: 2px solid var(--text);
+      border-bottom: 1px solid var(--divider);
+      padding: 14px 24px;
     }
 
     .step {
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 0.88rem;
-      color: #94a3b8;
+      font-size: 0.85rem;
+      color: var(--text-muted);
     }
 
     .step-num {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      font-size: 0.72rem;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--divider);
+      font-size: 0.65rem;
       font-weight: 700;
-      color: #cbd5e1;
+      color: var(--text-subtle);
       flex-shrink: 0;
     }
 
     .gallery {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      padding: 0;
+      gap: 48px;
+      padding: 0 24px;
       list-style: none;
     }
 
     .card {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      background: #13171e;
-      border: 1px solid rgba(255, 255, 255, 0.07);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
+      background: var(--card-bg);
+      padding: 10px 10px 28px;
+      box-shadow: var(--card-shadow);
       outline: none;
       cursor: pointer;
       user-select: none;
     }
 
-    .card img {
+    .card:nth-child(10n+1)  { transform: rotate(-0.7deg); }
+    .card:nth-child(10n+2)  { transform: rotate(0.4deg); }
+    .card:nth-child(10n+3)  { transform: rotate(-0.3deg); }
+    .card:nth-child(10n+4)  { transform: rotate(0.6deg); }
+    .card:nth-child(10n+5)  { transform: rotate(-0.5deg); }
+    .card:nth-child(10n+6)  { transform: rotate(0.2deg); }
+    .card:nth-child(10n+7)  { transform: rotate(-0.8deg); }
+    .card:nth-child(10n+8)  { transform: rotate(0.4deg); }
+    .card:nth-child(10n+9)  { transform: rotate(-0.3deg); }
+    .card:nth-child(10n+10) { transform: rotate(0.7deg); }
+
+    .card-image {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      line-height: 0;
+    }
+
+    .card-image img {
       display: block;
       width: 100%;
       height: auto;
       cursor: default;
     }
 
-    .card .alt {
+    .card-image .alt {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -143,65 +195,45 @@
     }
 
     .card:focus-visible {
-      outline: 2px solid #6aa9ff;
-      outline-offset: 2px;
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 3px;
+    }
+
+    .card-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 6px 2px;
     }
 
     .badge {
-      position: absolute;
-      top: 12px;
-      padding: 4px 11px;
-      border-radius: 20px;
-      font-size: 0.68rem;
+      font-size: 0.82rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
+      font-family: var(--body-font);
       pointer-events: none;
       transition: opacity 0.15s ease;
-      backdrop-filter: blur(6px);
     }
 
     .badge-then {
-      left: 12px;
-      background: rgba(216, 163, 82, 0.85);
-      color: #1a1200;
+      color: var(--badge-then-bg);
       opacity: 1;
     }
 
     .badge-now {
-      right: 12px;
-      background: rgba(96, 165, 250, 0.85);
-      color: #00111f;
-      opacity: 0;
+      color: var(--badge-now-bg);
+      opacity: 0.25;
     }
 
     .card.holding .badge-then {
-      opacity: 0;
+      opacity: 0.25;
     }
 
     .card.holding .badge-now {
       opacity: 1;
     }
 
-    .card-hint {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 40px 16px 14px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-      text-align: center;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.6);
-      pointer-events: none;
-      transition: opacity 0.15s ease;
-    }
-
-    .card.holding .card-hint {
-      opacity: 0;
-    }
   </style>
 </head>
 
@@ -219,11 +251,14 @@
     <ul class="gallery">
       {{#each pictures}}
       <li class="card" tabindex="0">
-        <img class="base" src="img/{{this.then}}" />
-        <img class="alt" aria-hidden="true" src="img/{{this.now}}" />
-        <span class="badge badge-then">Avant</span>
-        <span class="badge badge-now">Après</span>
-        <div class="card-hint">Maintenez appuyé pour révéler</div>
+        <div class="card-image">
+          <img class="base" src="img/{{this.then}}" />
+          <img class="alt" aria-hidden="true" src="img/{{this.now}}" />
+        </div>
+        <div class="card-labels">
+          <span class="badge badge-then">Avant</span>
+          <span class="badge badge-now">Après</span>
+        </div>
       </li>
       {{/each}}
     </ul>
@@ -272,6 +307,23 @@
         })
       })
     }
+
+    ;(function () {
+      const canvas = document.createElement('canvas')
+      canvas.width = 150
+      canvas.height = 150
+      const ctx = canvas.getContext('2d')
+      const img = ctx.createImageData(150, 150)
+      for (let i = 0; i < img.data.length; i += 4) {
+        const v = Math.random() * 255 | 0
+        img.data[i]     = v
+        img.data[i + 1] = v * 0.75 | 0
+        img.data[i + 2] = v * 0.35 | 0
+        img.data[i + 3] = 35
+      }
+      ctx.putImageData(img, 0, 0)
+      document.body.style.backgroundImage = `url(${canvas.toDataURL()})`
+    })()
 
     attachBehavior()
 
