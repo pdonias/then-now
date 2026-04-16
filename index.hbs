@@ -87,6 +87,14 @@
       cursor: default;
     }
 
+    @media (hover: none) {
+      .card {
+        cursor: default;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+      }
+    }
+
     .card:focus-visible {
       outline: 2px solid #6aa9ff;
       outline-offset: 2px;
@@ -131,6 +139,10 @@
         card.querySelectorAll('img').forEach(img => {
           img.addEventListener('contextmenu', event => {
             event.preventDefault()
+            event.stopPropagation()
+            event.cancelBubble = true
+            event.returnValue = false
+            return false
           })
         })
 
