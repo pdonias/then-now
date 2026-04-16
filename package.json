@@ -4,7 +4,8 @@
   "description": "Press-and-hold image swap gallery for then/now photo comparisons",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "node build.js"
   },
   "keywords": [],
   "author": "",
