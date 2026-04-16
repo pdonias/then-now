@@ -19,46 +19,101 @@
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: #0b0d10;
-      color: #e7ebf0;
+      background: #0c0e13;
+      background-image: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(80, 110, 170, 0.1) 0%, transparent 70%);
+      color: #e2e8f0;
       min-height: 100vh;
-      padding: 32px;
+      padding: 48px 32px 64px;
     }
 
     .container {
-      width: min(900px, 100%);
+      width: min(860px, 100%);
       margin: 0 auto;
     }
 
-    h1 {
-      font-size: clamp(1.4rem, 1rem + 1.5vw, 2rem);
-      margin: 0 0 8px 0;
-      letter-spacing: .2px;
+    .header {
       text-align: center;
+      margin-bottom: 40px;
     }
 
-    p {
-      opacity: .8;
-      margin: 0 0 24px 0;
+    h1 {
+      font-size: clamp(2rem, 1.2rem + 3vw, 3.2rem);
+      font-weight: 800;
+      margin: 0 0 6px;
+      letter-spacing: -1px;
+      background: linear-gradient(160deg, #e2e8f0 30%, #8eaed4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: clamp(0.75rem, 0.5rem + 0.8vw, 0.9rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #64748b;
+      margin: 0 0 28px;
+    }
+
+    .steps {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 14px 20px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: #94a3b8;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #cbd5e1;
+      flex-shrink: 0;
     }
 
     .gallery {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 20px;
       padding: 0;
       list-style: none;
     }
 
     .card {
       position: relative;
-      border-radius: 16px;
+      border-radius: 14px;
       overflow: hidden;
-      background: #12161c;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, .35);
+      background: #13171e;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .5);
       outline: none;
       cursor: pointer;
       user-select: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    @media (hover: hover) {
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, .65);
+      }
     }
 
     .card img {
@@ -100,29 +155,83 @@
       outline-offset: 2px;
     }
 
-    .hint {
-      font-size: .95rem;
-      opacity: .7;
-      margin-top: 8px;
+    .badge {
+      position: absolute;
+      top: 12px;
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .badge-then {
+      left: 12px;
+      background: rgba(216, 163, 82, 0.85);
+      color: #1a1200;
+      opacity: 1;
+    }
+
+    .badge-now {
+      right: 12px;
+      background: rgba(96, 165, 250, 0.85);
+      color: #00111f;
+      opacity: 0;
+    }
+
+    .card.holding .badge-then {
+      opacity: 0;
+    }
+
+    .card.holding .badge-now {
+      opacity: 1;
+    }
+
+    .card-hint {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 16px 14px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.6);
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .card.holding .card-hint {
+      opacity: 0;
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h1>Grenoble</h1>
-    <p style="display: inline-block; text-align: left; margin: 0 auto 24px; padding: 0; width: 100%; text-align: center;">
-      <span style="display: inline-block; text-align: left;">
-        1. Trouvez où c'est dans Grenoble<br>
-        2. Restez appuyé sur la photo pour la réponse
-      </span>
-    </p>
+    <header class="header">
+      <h1>Grenoble</h1>
+      <p class="tagline">avant &nbsp;/&nbsp; après</p>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span>Trouvez où c'est dans Grenoble</div>
+        <div class="step"><span class="step-num">2</span>Restez appuyé sur la photo pour la réponse</div>
+      </div>
+    </header>
 
     <ul class="gallery">
       {{#each pictures}}
       <li class="card" tabindex="0">
         <img class="base" src="img/{{this.then}}" />
         <img class="alt" aria-hidden="true" src="img/{{this.now}}" />
+        <span class="badge badge-then">Avant</span>
+        <span class="badge badge-now">Après</span>
+        <div class="card-hint">Maintenez appuyé pour révéler</div>
       </li>
       {{/each}}
     </ul>
