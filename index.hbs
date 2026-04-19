@@ -309,15 +309,21 @@
         })
 
         card.addEventListener('pointerdown', (e) => {
-          if (e.pointerType === 'touch') e.preventDefault()
+          if (e.pointerType === 'touch') return
           card.setPointerCapture?.(e.pointerId)
           addHolding(card)
         })
 
-        const end = () => removeHolding(card)
-        card.addEventListener('pointerup', end)
-        card.addEventListener('pointercancel', end)
-        card.addEventListener('pointerleave', end)
+        const pointerEnd = (e) => {
+          if (e.pointerType !== 'touch') removeHolding(card)
+        }
+        card.addEventListener('pointerup', pointerEnd)
+        card.addEventListener('pointercancel', pointerEnd)
+        card.addEventListener('pointerleave', pointerEnd)
+
+        card.addEventListener('touchstart', () => addHolding(card))
+        card.addEventListener('touchend', () => removeHolding(card))
+        card.addEventListener('touchcancel', () => removeHolding(card))
 
         card.addEventListener('keydown', (e) => {
           if (e.code === 'Space' || e.code === 'Enter') {
