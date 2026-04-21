@@ -1,7 +1,7 @@
 const fs = require('node:fs')
 const path = require('node:path')
 
-const SEED = 42
+const SEED = 6
 
 function seededScore(str) {
   let h = SEED
