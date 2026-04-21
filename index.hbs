@@ -142,6 +142,7 @@
     .gallery {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 48px;
       padding: 0 24px;
       list-style: none;
@@ -154,6 +155,7 @@
       outline: none;
       cursor: pointer;
       user-select: none;
+      max-width: 100%;
     }
 
     .card:nth-child(10n+1)  { transform: rotate(-0.7deg); }
@@ -179,6 +181,12 @@
       width: 100%;
       height: auto;
       cursor: default;
+    }
+
+    .card-image img:not(.alt) {
+      width: auto;
+      max-width: 100%;
+      max-height: calc(95vh - 70px);
     }
 
     .card-image .alt {
