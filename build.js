@@ -1,16 +1,6 @@
 const handlebars = require('handlebars')
 const fs = require('node:fs')
-const path = require('node:path')
-
-const imgFiles = {}
-fs.readdirSync('./img').forEach(file => {
-  const { name: id } = path.parse(file)
-  imgFiles[id] = file
-})
-
-const pictures = Object.keys(imgFiles)
-  .filter(id => !id.endsWith('_now') && (id + '_now') in imgFiles)
-  .map(id => ({ then: imgFiles[id], now: imgFiles[id + '_now'] }))
+const { pictures } = require('./pictures')
 
 fs.mkdirSync('./dist/img', { recursive: true })
 
