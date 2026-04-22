@@ -334,10 +334,10 @@
 
         card.addEventListener('touchstart', (e) => {
           const startY = e.touches[0].clientY
-          let timer = setTimeout(() => { addHolding(card) }, 200)
+          let timer = setTimeout(() => { timer = null; addHolding(card) }, 200)
 
           const onMove = (ev) => {
-            if (Math.abs(ev.touches[0].clientY - startY) > 10) {
+            if (timer !== null && Math.abs(ev.touches[0].clientY - startY) > 10) {
               clearTimeout(timer)
               timer = null
               cleanup()
