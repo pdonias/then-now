@@ -153,7 +153,6 @@
       padding: 10px 10px 28px;
       box-shadow: var(--card-shadow);
       outline: none;
-      cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
       -webkit-touch-callout: none;
@@ -184,6 +183,7 @@
       width: 100%;
       height: auto;
       cursor: default;
+      -webkit-user-drag: none;
     }
 
     .card-image img:not(.alt) {
@@ -289,8 +289,8 @@
       {{#each pictures}}
       <li class="card" tabindex="0">
         <div class="card-image">
-          <img class="base" src="img/{{this.then}}" />
-          <img class="alt" aria-hidden="true" src="img/{{this.now}}" />
+          <img class="base" src="img/{{this.then}}" draggable="false" />
+          <img class="alt" aria-hidden="true" src="img/{{this.now}}" draggable="false" />
         </div>
         <div class="card-labels">
           <span class="badge badge-then">Avant</span>
