@@ -329,9 +329,34 @@
         card.addEventListener('pointercancel', pointerEnd)
         card.addEventListener('pointerleave', pointerEnd)
 
-        card.addEventListener('touchstart', () => addHolding(card))
-        card.addEventListener('touchend', () => removeHolding(card))
-        card.addEventListener('touchcancel', () => removeHolding(card))
+        card.addEventListener('touchstart', (e) => {
+          const startY = e.touches[0].clientY
+          let timer = setTimeout(() => { addHolding(card) }, 350)
+
+          const onMove = (ev) => {
+            if (Math.abs(ev.touches[0].clientY - startY) > 10) {
+              clearTimeout(timer)
+              timer = null
+              cleanup()
+            }
+          }
+
+          const onEnd = () => {
+            clearTimeout(timer)
+            removeHolding(card)
+            cleanup()
+          }
+
+          const cleanup = () => {
+            card.removeEventListener('touchmove', onMove)
+            card.removeEventListener('touchend', onEnd)
+            card.removeEventListener('touchcancel', onEnd)
+          }
+
+          card.addEventListener('touchmove', onMove, { passive: true })
+          card.addEventListener('touchend', onEnd)
+          card.addEventListener('touchcancel', onEnd)
+        }, { passive: true })
 
         card.addEventListener('keydown', (e) => {
           if (e.code === 'Space' || e.code === 'Enter') {
